@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADE BY @Hackerking995</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .password-container, .main-content {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            height: 100vh;
+            z-index: 2;
+            position: relative;
+        }
+
+        .password-container {
+            display: flex;
+        }
+
+        input[type="password"], button {
+            font-size: 1em;
+            padding: 12px;
+            margin: 15px;
+            border-radius: 5px;
+            border: 2px solid #00ffff;
+            background-color: #1e1e1e;
+            color: white;
+            text-shadow: 0 0 5px white;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #00ffff;
+            transition: background-color 0.3s;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+
+        button:hover {
+            background-color: #66ffff;
+        }
+
+        .container {
+            border: 4px solid #00ffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+        }
+
+        .textview {
+            font-size: 1.5em;
+            margin: 20px 0;
+            padding: 12px;
+            border: 2px solid #00ffff;
+            background: #1e1e1e;
+            color: white;
+            text-shadow: 0 0 10px white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+
+        .main-content {
+            padding-top: 50px;
+        }
+
+        /* Telegram button styles */
+        .telegram-button {
+            background-color: #0088cc;
+            border: none;
+            color: white;
+            text-shadow: 0 0 5px white;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1em;
+            margin: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 0 10px #0088cc, 0 0 20px #0088cc;
+        }
+
+        .telegram-button:hover {
+            background-color: #00aaff;
+        }
+
+        /* Particle Canvas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #1e1e1e;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Password Screen -->
+    <div class="password-container">
+        <div>
+            <h1>Welcome! Enter Password</h1>
+            <input type="password" id="password" placeholder="Enter Password">
+            <div style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+                <button id="submitPassword">Enter</button>
+                <a href="https://t.me/+Nz7Abdxx-Lo0NDE9" target="_blank" class="telegram-button">Telegram</a>
+            </div>
+            <div id="errorMessage" style="color: yellow; display: none;">Incorrect Password</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>MADE BY @Hackerking995</h1>
+        <div class="container">
+            <div class="textview" id="textview3">Period Number will appear here</div>
+            <div class="textview" id="textview2">Countdown: 00:00</div>
+            <button id="button1">Get Prediction</button>
+            <div class="textview" id="textview1">Prediction will appear here</div>
+        </div>
+    </div>
+
+    <!-- Include particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#0088cc"
+                },
+                shape: {
+                    type: "circle",
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#0088cc",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 3,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    }
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Password validation and functionality
+        const correctPassword = "SDXKING"; // Key updated here
+        const passwordInput = document.getElementById("password");
+        const submitPasswordButton = document.getElementById("submitPassword");
+        const errorMessage = document.getElementById("errorMessage");
+        const passwordScreen = document.querySelector(".password-container");
+        const mainContent = document.querySelector(".main-content");
+
+        submitPasswordButton.addEventListener("click", () => {
+            if (passwordInput.value === correctPassword) {
+                passwordScreen.style.display = "none";
+                mainContent.style.display = "flex";
+            } else {
+                errorMessage.style.display = "block";
+            }
+        });
+
+        // Timer and Prediction Functionality
+        setInterval(() => {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const remainingSeconds = 60 - seconds;
+            const minutes = now.getMinutes();
+            const totalMinutes = now.getHours() * 60 + minutes;
+
+            const currentDate = now.toISOString().slice(0, 10).replace(/-/g, '');
+            const periodCalculation = 10001 + totalMinutes - 330;
+            const periodNumber = currentDate + '1000' + periodCalculation;
+
+            document.getElementById("textview3").textContent = periodNumber;
+            document.getElementById("textview2").textContent = `00:${remainingSeconds.toString().padStart(2, '0')}`;
+        }, 1000);
+
+        document.getElementById("button1").addEventListener("click", () => {
+            const periodNumber = document.getElementById("textview3").textContent;
+            let sumOfDigits = 0;
+            for (let char of periodNumber) sumOfDigits += parseInt(char, 10);
+
+            const predictionResult = sumOfDigits % 2 === 0 ? "Small" : "Big";
+            document.getElementById("textview1").textContent = predictionResult;
+        });
+    </script>
+</body>
+</html>
